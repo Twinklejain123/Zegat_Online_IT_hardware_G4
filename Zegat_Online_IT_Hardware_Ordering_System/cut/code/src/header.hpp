@@ -127,7 +127,6 @@ class Admin:public customer,public supplier  	//defining Admin class which inehr
 
 Admin ad;		//globally declaring admin object
 char temp[40];		//globally declaring string
-string mob_temp;		//globally declaring string
 list<product> prod;	//globally creating product list
 list<supplier> sup;	//globally creating supplier list
 list<customer> cust;	//globally creating customer list
