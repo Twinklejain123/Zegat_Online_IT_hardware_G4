@@ -26,7 +26,7 @@ FUNCTIONNAME: maintain_product()
 DESCRIPTION:This function is used to maintain products by admin like add,edit,
 delete and view products.
 
- *********************************************************************************/
+ ********************************************************************************/
 int Admin::maintain_product()
 {
 	int choice=0;
