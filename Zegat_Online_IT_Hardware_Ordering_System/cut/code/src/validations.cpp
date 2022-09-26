@@ -1,4 +1,4 @@
-/*********************************************************************************
+/**********************************************************************************
 
 
 FILENAME: validations.cpp
@@ -263,11 +263,51 @@ class validations
 			}
 			return id;
 		}
+
+
+		/**********************************************************************************
+
+
+			FUNCTIONNAME: check_name
+			DESCRIPTION:This function  is used to check whether given string is valid as name or not
+
+		 *********************************************************************************/
+		static bool check_mobile_number(string number)
+		{
+			if(number[0]==' '||(number[0]=='\t')||number[0]=='\n')
+			{
+				cout<<"Number cannot  not start with blank!!!\n";
+				return true;
+			}
+			int flag=0;
+			for(int i=0;i<number.length();i++)
+			{
+				if(!isdigit(number[i]))
+				{
+					flag=1;
+					break;
+				}
+			}
+			if((flag==1))
+			{
+				cout<<"Number should be digits only !!!\n";
+				return true;
+			}
+			if((number.length()!=10))
+			{
+				cout<<"Number should be 10 digits only!!!\n";
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+
+
+
+
+
 };
 #endif
-
-
-
-
-
-
