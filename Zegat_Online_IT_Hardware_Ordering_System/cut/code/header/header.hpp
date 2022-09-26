@@ -12,18 +12,34 @@ DATE            NAME              REASON
 #ifndef H_HEADER
 #define H_HEADER
 #include <iostream>
-#include<vector>
 #include <string>
 #include <list>
 using namespace std;
-
-class customer     //customer class definition
+class transaction        		//tranaction class definition
 {
+	protected:
+		int transaction_id;
+		int cust_id;
+		char prod1[25];
+		char prod2[25];
+		char prod3[25];
+		int total_amount;
+		int discount;
+		int amount;
 	public:
+		int view_transaction();                 // function prototype for view_customer
+		int generate_bill(char*,char*,char*,int,int );  //function prototype for generating_bill
+		int get_cust_id();		 	//function protype for get_cust_id
+		int get_transaction_id();		//function prototype for get_transaction_id
+
+};
+class customer:public transaction     //customer class definition
+{
+	protected:
 		int customer_id;
-		string customer_name;
+		char customer_name[25];
 		long int cmobile_no;
-		string customer_address;
+		char customer_address[40];
 	public:
 		int register_customer();		//function prototype for register_customer
 		int login_customer();			//function prototype for login_customer
@@ -33,8 +49,8 @@ class customer     //customer class definition
 		int place_order();			//function prototype for place_order	
 		int view_transaction_history();		//function prototype for view_transaction_history 
 		int get_customer_id();			//function prototype for get_customer_id
-		string get_customer_name();		//function prototype for get_customer_name
-		string get_customer_address();		//function prototype for get_customer_address
+		char* get_customer_name();		//function prototype for get_customer_name
+		char* get_customer_address();		//function prototype for get_customer_address
 		long int get_cmobile_no();		//function prototype for get_cmobile_no
 
 };
@@ -42,7 +58,7 @@ class product    //product class definition
 {
 	protected:
 		int product_id;
-		string product_name;
+		char product_name[25];
 		int no_of_units;
 		int cost;
 		int units_sold;
@@ -53,20 +69,22 @@ class product    //product class definition
 		int get_product_id();			//function prototype for get_product_id
 		int get_sup_id();			//function prototype for get_up_id
 		int get_cost();				//function prototype for get_cost
-		string get_product_name();		//function prototype for get_product_name
+		char* get_product_name();		//function prototype for get_product_name
 		int get_no_of_units();			//function prototype for get_no_of_units
 		int get_units_sold();			//function prototype for get_units_sold
 		void set_no_of_units(int);		//function prototype for set_no_of_units
 		void set_units_sold(int);		//function prototype for set_units_sold
-		friend class supplier;
-		friend class Admin;
+		void set_cost(int);		//function prototype for set_units_sold
+                void set_product_id(int);
+                void set_product_name(char*);
+                void set_sup_id(int);
 };
-class supplier     //supplier class definition
+class supplier:public product   //supplier class definition
 {
 	protected:
 		int supplier_id;
-		string supplier_name;
-		string supplier_address;
+		char supplier_name[25];
+		char supplier_address[40];
 		long int mobile_no;
 
 	public:
@@ -78,8 +96,8 @@ class supplier     //supplier class definition
 		int add_product();			//function prototype for add_product
 		int edit_product();			//function prototype for edit_product
 		int get_supplier_id();			//function prototype for get_supplier_id
-		string get_supplier_name();		//function prototype for get_supplier_name
-		string get_supplier_address();		//function prototype for get_supplier_address
+		char* get_supplier_name();		//function prototype for get_supplier_name
+		char* get_supplier_address();		//function prototype for get_supplier_address
 		long int get_mobile_no();		//function prototype for get_mobile_no
 };
 
@@ -97,37 +115,18 @@ class Admin:public customer,public supplier  	//defining Admin class which inehr
 		int view_customer_list();		//function prototype for view_customer_list
 		int view_product_list();		//function prototype for view_product_list
 		int view_transactions();		//function prototype for view_transactions
-		int add_product();			//function prototype for add_product
+		int adding_product();			//function prototype for add_product
 		int edit_supplier();			//function prototype for edit_supplier
 		int edit_customer();			//function prototype for edit_customer 
-		int edit_product();			//function prototype for edit_product
+		int editing_product();			//function prototype for edit_product
 		int order_stock();			//function prototype for order_stock
 		int stock_report();			//function prototype for stock_report
 		int top_three_product();			//function prototype for top_3_product
 };
 
-class transaction        		//tranaction class definition
-{
-	protected:
-		int transaction_id;
-		int cust_id;
-		string prod1;
-		string prod2;
-		string prod3;
-		int total_amount;
-		int discount;
-		int amount;
-	public:
-		int view_transaction();                 // function prototype for view_customer
-		int generate_bill(string [],int,int );  //function prototype for generating_bill
-		friend class customer;				
-		int get_cust_id();		 	//function protype for get_cust_id
-		int get_transaction_id();		//function prototype for get_transaction_id
-
-};
 
 Admin ad;		//globally declaring admin object
-string temp;		//globally declaring string
+char temp[40];		//globally declaring string
 list<product> prod;	//globally creating product list
 list<supplier> sup;	//globally creating supplier list
 list<customer> cust;	//globally creating customer list
