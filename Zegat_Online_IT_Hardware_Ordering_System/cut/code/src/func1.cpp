@@ -83,22 +83,13 @@ int customer::register_customer()
 	while(1)
 	{
 		cout<<"Enter Customer Mobile number: ";
-		cin>>mob_temp;
-		if(validations::check_digit(mob_temp)) //Taking mobile number as input and validating it.
+		cin>>temp;
+		if(validations::check_mobile_number(temp)) //Taking mobile number as input and validating it.
 		{
-			cout<<"Mobile number should be digits only\n";
 			continue;
 		}
-		else if(mob_temp.length()!=10)
-		{
-			cout<<"Mobile number should be 10 digits\n";
-			continue;
-		}
-		else
-		{
-			c1.cmobile_no=stol(mob_temp); 
+			c1.cmobile_no=atol(temp); 
 			break;
-		}
 	}
 	cust.push_back(c1);  //Inserting customer details in customer list.
 	cout<<"\nCustomer Added Successfully!!!"<<"\nCustomer Id is "<<c1.customer_id<<endl<<endl<<endl;
@@ -154,22 +145,13 @@ int customer::edit_customer_details()
 	while(1)
 	{
 		cout<<"Enter Customer Mobile number: ";
-		cin>>mob_temp;
-		if(validations::check_digit(mob_temp)) //Taking customer mobile number as input and validating it.
+		cin>>temp;
+		if(validations::check_mobile_number(temp)) //Taking mobile number as input and validating it.
 		{
-			cout<<"Mobile number should be digits only\n";
 			continue;
 		}
-		else if(mob_temp.length()!=10)
-		{
-			cout<<"Mobile number should be 10 digits\n";
-			continue;
-		}
-		else
-		{
-			this->cmobile_no=stol(mob_temp);
+			this->cmobile_no=atol(temp);
 			break;
-		}
 	}	
 	cout<<endl<<"Details editted Successfully!!!\n\n";
 	return EXIT_SUCCESS;	
@@ -223,9 +205,9 @@ int customer::place_order()
 	int qty;
 	int prod_cost;
 	char prod_name[25];
-	char product_1[25];
-	char product_2[25];
-	char product_3[25];
+	char product_1[25]="Nil";
+	char product_2[25]="Nil";
+	char product_3[25]="Nil";
 	int amount=0;
 	this->view_items();
 	while(choice!=0)
@@ -246,7 +228,7 @@ int customer::place_order()
 			}
 			else
 			{
-				prod_id=stoi(temp);
+				prod_id=atoi(temp);
 				break;
 			}
 		}
@@ -269,7 +251,7 @@ int customer::place_order()
 						break;
 					}
 				}
-				strcpy(prod_name,it->get_product_name());		
+				strcpy(prod_name,it->get_product_name());
 				prod_cost=it->get_cost();		
 				if((qty>it->get_no_of_units())||qty<0)
 				{
@@ -280,11 +262,11 @@ int customer::place_order()
 				accum_mutex.lock();
 				it->set_no_of_units(it->get_no_of_units()-qty);
 				it->set_units_sold(qty);
-				if(count==1)
+				if(count==0)
 				{
 					strcpy(product_1,prod_name);
 				}
-				else if(count==2)
+				else if(count==1)
 				{
 					strcpy(product_2,prod_name);
 				}
@@ -505,7 +487,7 @@ int transaction::generate_bill(char* product_1,char* product_2,char* product_3,i
 	}
 	else
 	{
-		discount=(4*amount)/100;
+		discount=(5*amount)/100;
 	}
 	this->transaction_id=trans_id;
 	this->cust_id=customer_id;
@@ -554,13 +536,8 @@ int supplier::register_supplier()
 		}
 	}
 	id+=1;
-	supplier *s1=new supplier;
-	if(s1==NULL)
-	{
-		cout<<"Memory Cannot be allocated !!!\n\n";
-		return EXIT_FAILURE;
-	}
-	s1->supplier_id=id;
+	supplier s1;
+	s1.supplier_id=id;
 	int count=0;
 	cout<<endl<<"Enter Details for Supplier Registration"<<endl;
 	cout<<"---------------------------------------"<<endl;	
@@ -581,7 +558,7 @@ int supplier::register_supplier()
 		{
 			continue;
 		}
-			strcpy(s1->supplier_name,temp);
+			strcpy(s1.supplier_name,temp);
 			break;
 	}
 
@@ -595,31 +572,22 @@ int supplier::register_supplier()
 		{
 			continue;
 		}
-		strcpy(s1->supplier_address,temp);
+		strcpy(s1.supplier_address,temp);
 		break;
 	}
 	while(1)
 	{
 		cout<<"Enter Supplier Mobile number: ";
-		cin>>mob_temp;
-		if(validations::check_digit(mob_temp)) //Taking supplier mobile number as input and validating it.
+		cin>>temp;
+		if(validations::check_mobile_number(temp)) //Taking supplier mobile number as input and validating it.
 		{
-			cout<<"Mobile number should be digits only\n";
 			continue;
 		}
-		else if(mob_temp.length()!=10)
-		{
-			cout<<"Mobile number should be 10 digits\n";
-			continue;
-		}
-		else
-		{
-			s1->mobile_no=stol(mob_temp);
+			s1.mobile_no=atol(temp);
 			break;
-		}
 	}
-	sup.push_back(*s1); //Inserting supplier details into supplier list.
-	cout<<"\nSupplier Added Successfully!!!"<<"\nSupplier Id is "<<s1->supplier_id<<endl<<endl<<endl;
+	sup.push_back(s1); //Inserting supplier details into supplier list.
+	cout<<"\nSupplier Added Successfully!!!"<<"\nSupplier Id is "<<s1.supplier_id<<endl<<endl<<endl;
 	return EXIT_SUCCESS;	
 }
 
@@ -837,22 +805,13 @@ int supplier::edit_supplier_details()
 	while(1)
 	{
 		cout<<"Enter Supplier Mobile number: ";
-		cin>>mob_temp;
-		if(validations::check_digit(mob_temp)) //Taking supplier mobile number as input and validating it.
+		cin>>temp;
+		if(validations::check_mobile_number(temp)) //Taking supplier mobile number as input and validating it.
 		{
-			cout<<"Mobile number should be digits only\n";
 			continue;
 		}
-		else if(mob_temp.length()!=10)
-		{
-			cout<<"Mobile number should be 10 digits\n";
-			continue;
-		}
-		else
-		{
 			this->mobile_no=stol(temp);
 			break;
-		}
 	}
 	cout<<endl<<"Details editted Successfully!!!\n\n";
 	return EXIT_SUCCESS;
@@ -1819,4 +1778,3 @@ int Admin::top_three_product()
 
 }
 #endif
-
